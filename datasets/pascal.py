@@ -55,10 +55,10 @@ class Pascal2007(data.Dataset):
                 }
 
     def __init__(self,
-                 split=None,
+                 split="val",
                  transform_function=None):
     
-        self.path = path = "//mnt/datasets/public/issam/VOCdevkit/VOC2007/"
+        self.path = path = r"E:\github\darknet_windows\build\darknet\x64\data\voc\VOCdevkit_voc\VOC2007/"
         self.transform_function = transform_function
         
         fname_path =  "%s/ImageSets/Main" % path
@@ -76,7 +76,7 @@ class Pascal2007(data.Dataset):
         elif split == "test":
             self.imgNames = [t.replace("\n","") 
                                 for t in 
-                                ut.read_text(fname_path + "/test.txt")]
+                                ut.read_text(fname_path + "/val.txt")]
         
         if os.path.exists(path_pointJSON):
           self.pointsJSON = ut.load_json(path_pointJSON)

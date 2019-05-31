@@ -75,7 +75,7 @@ def val_MAE(model, dataset, epoch):
     batch["images"] = batch["images"][None]
     
     # Make sure model wasn't trained on this
-    assert batch["image_path"] not in model.trained_images
+    # assert batch["image_path"] not in model.trained_images
     # print("model wasn't trained on this!")
     
     true_count[i] = batch["counts"].item()
@@ -105,17 +105,17 @@ def val_mRMSE(model, dataset, epoch):
     batch = dataset[i]
     batch["images"] = batch["images"][None]
 
-    assert batch["image_path"] not in model.trained_images
+    # assert batch["image_path"] not in model.trained_images
 
     true_count[i] = t2n(batch["counts"])
     pred_count[i] = model.predict(batch, method="counts")
 
-
-    mRMSE = np.sqrt(np.mean((pred_count[:i+1] - true_count[:i+1])**2, 0)).mean()
-
-    if i % 50 == 0 or i == (n_images - 1):
-      print(("%d - %d/%d - Validating %s set - mRMSE: %.3f" % 
-            (epoch, i, n_images, dataset.split, mRMSE)))
+    print(batch["image_path"],pred_count[i][15],pred_count[i][16])
+    # mRMSE = np.sqrt(np.mean((pred_count[:i+1] - true_count[:i+1])**2, 0)).mean()
+    #
+    # if i % 50 == 0 or i == (n_images - 1):
+    #   print(("%d - %d/%d - Validating %s set - mRMSE: %.3f" %
+    #         (epoch, i, n_images, dataset.split, mRMSE)))
 
   score_dict = {}
   assert not np.any(true_count==(-1))
